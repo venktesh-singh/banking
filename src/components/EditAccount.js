@@ -8,7 +8,8 @@ export const EditAccount = (route) => {
   const { id } = useParams();
   
   const { accounts, editAccount } = useContext(GlobalContext);
-
+  const { addAccount, addAccounts } = useContext(GlobalContext);
+  const [money, setMoney] = useState("");
   const [selectedUser, setSelectedUser] = useState({
     id: null,
     account_no : "",
@@ -28,6 +29,11 @@ export const EditAccount = (route) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    const newAccount = {
+      id: addAccounts.length + 1,
+      money,
+    };
+    addAccount(newAccount);
     editAccount(selectedUser);
     navigate("/");
   };
@@ -46,7 +52,7 @@ export const EditAccount = (route) => {
         <div className="w-full mb-5">
             <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              htmlFor="name"
+              htmlFor="name" 
             >
               Account Number
             </label>
@@ -56,6 +62,7 @@ export const EditAccount = (route) => {
               onChange={(e) => handleOnChange("account_no", e.target.value)}
               type="text"
               placeholder="Enter Account Number"
+              disabled
             />
           </div>
           <div className="w-full mb-5">
@@ -70,7 +77,7 @@ export const EditAccount = (route) => {
               value={selectedUser.name}
               onChange={(e) => handleOnChange("name", e.target.value)}
               type="text"
-              placeholder="Enter name"
+              placeholder="Enter name" disabled
             />
           </div>
           <div className="w-full  mb-5">
@@ -78,12 +85,13 @@ export const EditAccount = (route) => {
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
               htmlFor="money"
             >
-              Money
+              Money  
             </label>
+            <span>{selectedUser.money}</span>   
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:text-gray-600 focus:shadow-outline"
-              value={selectedUser.money}
-              onChange={(e) => handleOnChange("money", e.target.value)}
+              value={money}
+              onChange={(e) => setMoney(e.target.value)}
               type="text"
               placeholder="Enter Money"
             />
