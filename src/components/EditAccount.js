@@ -8,8 +8,7 @@ export const EditAccount = (route) => {
   const { id } = useParams();
   
   const { accounts, editAccount } = useContext(GlobalContext);
-  const { addAccount, addAccounts } = useContext(GlobalContext);
-  const [money, setMoney] = useState("");
+
   const [selectedUser, setSelectedUser] = useState({
     id: null,
     account_no : "",
@@ -29,11 +28,6 @@ export const EditAccount = (route) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const newAccount = {
-      id: addAccounts.length + 1,
-      money,
-    };
-    addAccount(newAccount);
     editAccount(selectedUser);
     navigate("/");
   };
@@ -44,6 +38,20 @@ export const EditAccount = (route) => {
   if (!selectedUser || !selectedUser.id) {
     return <div>Invalid Account No.</div>;
   }
+/*
+  let [amountList, setAmountList] = useState(selectedUser.money);
+
+  const incrementAmount = (index) => {
+    let newAmountList = [...amountList];
+    newAmountList[index].quantity++;
+    setAmountList(newAmountList);
+  };
+
+  const decrementAmount = (index) => {
+    let newAmountList = [...amountList];
+    newAmountList[index].quantity++;
+    setAmountList(newAmountList);
+  };*/
 
   return (
     <>
@@ -52,7 +60,7 @@ export const EditAccount = (route) => {
         <div className="w-full mb-5">
             <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              htmlFor="name" 
+              htmlFor="name"
             >
               Account Number
             </label>
@@ -77,7 +85,8 @@ export const EditAccount = (route) => {
               value={selectedUser.name}
               onChange={(e) => handleOnChange("name", e.target.value)}
               type="text"
-              placeholder="Enter name" disabled
+              placeholder="Enter name"
+              disabled
             />
           </div>
           <div className="w-full  mb-5">
@@ -85,21 +94,20 @@ export const EditAccount = (route) => {
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
               htmlFor="money"
             >
-              Money  
-            </label>
-            <span>{selectedUser.money}</span>   
+              Money
+            </label> 
+            <span>{parseInt(selectedUser.money)}</span>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:text-gray-600 focus:shadow-outline"
-              value={money}
-              onChange={(e) => setMoney(e.target.value)}
+              value={parseInt(selectedUser.money)}
+              onChange={(e) => handleOnChange("money", e.target.value)}
               type="text"
               placeholder="Enter Money"
             />
           </div>
           <div className="flex items-center justify-between">
-            <button className="block mt-5 bg-green-400 w-full hover:bg-green-500 text-white font-bold py-2 px-4 rounded focus:text-gray-600 focus:shadow-outline">
-              Edit Account
-            </button>
+            <button type="button" class="btn btn-success block mt-5 bg-green-400 w-full hover:bg-green-500 text-white font-bold py-2 px-3 rounded focus:text-gray-600 focus:shadow-outline">Increment</button>&nbsp;
+            <button type="button" class="btn btn-success block mt-5 bg-green-400 w-full hover:bg-green-500 text-white font-bold py-2 px-4 rounded focus:text-gray-600 focus:shadow-outline">Decrement</button>
           </div>
           <div className="text-center mt-4 text-gray-500">
             <Link to="/">Cancel</Link>
