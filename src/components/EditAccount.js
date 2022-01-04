@@ -9,12 +9,19 @@ export const EditAccount = (route) => {
   
   const { accounts, editAccount } = useContext(GlobalContext);
 
+  let [amountList, setAmountList] = useState();
+
   const [selectedUser, setSelectedUser] = useState({
     id: null,
     account_no : "",
     name: "",
     money: "",
   });
+ 
+  useEffect(()=>{
+    const user = selectedUser.money;
+    setAmountList(user);
+  },[])
 
   const currentUserId = id;
   
@@ -38,8 +45,6 @@ export const EditAccount = (route) => {
   if (!selectedUser || !selectedUser.id) {
     return <div>Invalid Account No.</div>;
   }
-/*
-  let [amountList, setAmountList] = useState(selectedUser.money);
 
   const incrementAmount = (index) => {
     let newAmountList = [...amountList];
@@ -51,7 +56,7 @@ export const EditAccount = (route) => {
     let newAmountList = [...amountList];
     newAmountList[index].quantity++;
     setAmountList(newAmountList);
-  };*/
+  };
 
   return (
     <>
@@ -106,8 +111,8 @@ export const EditAccount = (route) => {
             />
           </div>
           <div className="flex items-center justify-between">
-            <button type="button" class="btn btn-success block mt-5 bg-green-400 w-full hover:bg-green-500 text-white font-bold py-2 px-3 rounded focus:text-gray-600 focus:shadow-outline">Increment</button>&nbsp;
-            <button type="button" class="btn btn-success block mt-5 bg-green-400 w-full hover:bg-green-500 text-white font-bold py-2 px-4 rounded focus:text-gray-600 focus:shadow-outline">Decrement</button>
+            <button onClick={incrementAmount} type="button" class="btn btn-success block mt-5 bg-green-400 w-full hover:bg-green-500 text-white font-bold py-2 px-3 rounded focus:text-gray-600 focus:shadow-outline">Deposit</button>&nbsp;
+            <button onClick={decrementAmount} type="button" class="btn btn-success block mt-5 bg-green-400 w-full hover:bg-green-500 text-white font-bold py-2 px-4 rounded focus:text-gray-600 focus:shadow-outline">Withdraw</button>
           </div>
           <div className="text-center mt-4 text-gray-500">
             <Link to="/">Cancel</Link>
