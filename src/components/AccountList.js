@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 
 import { GlobalContext } from '../context/GlobalState';
 
-export const AccountList = () => {
+export const AccountList = (props) => {
+  console.log(props);
   const { accounts, removeAccount } = useContext(GlobalContext);
   console.log(accounts);
   return (
