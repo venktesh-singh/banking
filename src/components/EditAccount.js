@@ -8,20 +8,13 @@ export const EditAccount = (route) => {
   const { id } = useParams();
   
   const { accounts, editAccount } = useContext(GlobalContext);
-
-  let [amountList, setAmountList] = useState();
-
+const[money, setMoney]=useState("")
   const [selectedUser, setSelectedUser] = useState({
     id: null,
     account_no : "",
     name: "",
-    money: "",
+    money:"",
   });
- 
-  useEffect(()=>{
-    const user = selectedUser.money;
-    setAmountList(user);
-  },[])
 
   const currentUserId = id;
   
@@ -31,6 +24,7 @@ export const EditAccount = (route) => {
       (currentAccountTraversal) => currentAccountTraversal.id === parseInt(accountId)
     );
     setSelectedUser(selectedUser);
+    setMoney(parseInt(selectedUser.money))
   }, [currentUserId, accounts]);
 
   const onSubmit = (e) => {
@@ -40,24 +34,14 @@ export const EditAccount = (route) => {
   };
 
   const handleOnChange = (userKey, newValue) =>
-    setSelectedUser({ ...selectedUser, [userKey]: newValue });
+  setSelectedUser({ ...selectedUser, [userKey]: parseInt(newValue)+money});
+
+  const handleOnChanges = (userKey, newValue) =>
+  setSelectedUser({ ...selectedUser, [userKey]: money -parseInt(newValue)});
 
   if (!selectedUser || !selectedUser.id) {
     return <div>Invalid Account No.</div>;
   }
-
-  const incrementAmount = (index) => {
-    let newAmountList = [...amountList];
-    newAmountList[index].quantity++;
-    setAmountList(newAmountList);
-  };
-
-  const decrementAmount = (index) => {
-    let newAmountList = [...amountList];
-    newAmountList[index].quantity++;
-    setAmountList(newAmountList);
-  };
-
   return (
     <>
       <div className="w-full max-w-sm container mt-20 mx-auto">
@@ -96,23 +80,36 @@ export const EditAccount = (route) => {
           </div>
           <div className="w-full  mb-5">
             <label
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              htmlFor="money"
-            >
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"htmlFor="money">
               Money
             </label> 
-            <span>{parseInt(selectedUser.money)}</span>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:text-gray-600 focus:shadow-outline"
-              value={parseInt(selectedUser.money)}
               onChange={(e) => handleOnChange("money", e.target.value)}
-              type="text"
+              type="number"
               placeholder="Enter Money"
             />
           </div>
           <div className="flex items-center justify-between">
-            <button onClick={incrementAmount} type="button" class="btn btn-success block mt-5 bg-green-400 w-full hover:bg-green-500 text-white font-bold py-2 px-3 rounded focus:text-gray-600 focus:shadow-outline">Deposit</button>&nbsp;
-            <button onClick={decrementAmount} type="button" class="btn btn-success block mt-5 bg-green-400 w-full hover:bg-green-500 text-white font-bold py-2 px-4 rounded focus:text-gray-600 focus:shadow-outline">Withdraw</button>
+            <button  className="btn btn-success block mt-5 bg-green-400 w-full hover:bg-green-500 text-white font-bold py-2 px-3 rounded focus:text-gray-600 focus:shadow-outline" >Diposit</button>
+          </div>
+          
+        </form>
+        <form onSubmit={onSubmit}>
+          <div className="w-full  mb-5">
+            <label
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"htmlFor="money">
+              Money
+            </label> 
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:text-gray-600 focus:shadow-outline"
+              onChange={(e) => handleOnChanges("money", e.target.value)}
+              type="number"
+              placeholder="Enter Money"
+            />
+          </div>
+          <div className="flex items-center justify-between">
+            <button  className="btn btn-success block mt-5 bg-green-400 w-full hover:bg-green-500 text-white font-bold py-2 px-3 rounded focus:text-gray-600 focus:shadow-outline" >Withdraw</button>
           </div>
           <div className="text-center mt-4 text-gray-500">
             <Link to="/">Cancel</Link>
