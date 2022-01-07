@@ -1,12 +1,29 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useCallback  } from 'react';
 import { Link } from 'react-router-dom';
+import Paginations from "./Pagination";
 
 import { GlobalContext } from '../context/GlobalState';
 
-export const AccountList = (props) => {
-  console.log(props);
+export const AccountList = () => {
   const { accounts, removeAccount } = useContext(GlobalContext);
-  console.log(accounts);
+ 
+  const [currentPage, setCurrentPage] = useState(1);
+  
+  let NUM_OF_RECORDS = accounts.length; 
+  let LIMIT = 2;
+
+  const onPageChanged = useCallback(
+    (event, page) => {
+      event.preventDefault();
+      setCurrentPage(page);
+    },
+    [setCurrentPage]
+  );
+  const currentData = accounts.slice(
+    (currentPage - 1) * LIMIT,
+    (currentPage - 1) * LIMIT + LIMIT
+  );
+
   return (
     <React.Fragment>
       {accounts.length > 0 ? (
@@ -47,6 +64,15 @@ export const AccountList = (props) => {
               </div>
             </div>
           ))}
+          <div className="pagination-wrapper">
+          <Paginations
+            totalRecords={NUM_OF_RECORDS}  
+            pageLimit={LIMIT}
+            pageNeighbours={2}
+            onPageChanged={onPageChanged}
+            currentPage={currentPage}
+          />
+        </div>
         </React.Fragment>
       ) : (
         <p className="text-center bg-gray-100 text-gray-500 py-5">No data.</p>
