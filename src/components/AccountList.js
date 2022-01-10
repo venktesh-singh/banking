@@ -26,9 +26,9 @@ export const AccountList = () => {
 
   return (
     <React.Fragment>
-      {accounts.length > 0 ? (
+      {currentData.length > 0 ? (
         <React.Fragment>
-          {accounts.map((account) => (  
+          {currentData.map((account) => (  
             <div
               className="flex items-center bg-gray-100 mb-10 shadow"
               key={account.id}
