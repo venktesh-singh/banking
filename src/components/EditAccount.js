@@ -16,7 +16,7 @@ const[money, setMoney]=useState("")
     money:"",
   });
 
-  const currentUserId = id;
+  const currentUserId = id;  
   
   useEffect(() => {
     const accountId = currentUserId;
@@ -44,7 +44,8 @@ const[money, setMoney]=useState("")
   }
   return (
     <>
-      <div className="w-full max-w-sm container mt-20 mx-auto">
+      <div className="w-full max-w-sm container mt-20 mx-auto addnlcls">
+      <h3 class="text-center text-3xl mt-20 text-base leading-8 text-black font-bold tracking-wide uppercase">Deposit And Withdraw Money</h3>
         <form onSubmit={onSubmit}>
         <div className="w-full mb-5">
             <label
@@ -118,5 +119,4 @@ const[money, setMoney]=useState("")
       </div>
     </>
   );
-};
-
+};   

@@ -36,3 +36,54 @@
     transform: rotate(360deg);
   }
 }
+
+.current-page {
+  margin-top:0.5rem;
+  font-size: 0.8rem;
+  vertical-align: middle;   
+  }
+  
+.pagination-wrapper {   
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+  .ImageAPI{
+    height: 600px;
+    overflow-y: auto;
+  }
+
+  .bankingtop{
+    margin-bottom:100px;
+  }
+
+  .footer-copyright.text-center.py-3 {
+    background: #28a745;
+    color: #fff;
+    margin-top: 200px;
+}
+
+.footer-copyright.text-center.py-3 a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.addnlcls{
+  padding-top:100px
+}
+
+.h3.tracking-wide .bankingtop{
+  padding-top: 40px;
+}
+
+.addklass span{
+  margin-left: 10px;
+}
+
+.bankingtop h3{
+  padding-top:30px;
+}

@@ -10,7 +10,7 @@ export const AccountList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   
   let NUM_OF_RECORDS = accounts.length; 
-  let LIMIT = 2;
+  let LIMIT = 4;  
 
   const onPageChanged = useCallback(
     (event, page) => {
@@ -23,14 +23,14 @@ export const AccountList = () => {
     (currentPage - 1) * LIMIT,
     (currentPage - 1) * LIMIT + LIMIT
   );
-
+  
   return (
     <React.Fragment>
-      {currentData.length > 0 ? (
+      {currentData.length > 0 ? ( 
         <React.Fragment>
           {currentData.map((account) => (  
             <div
-              className="flex items-center bg-gray-100 mb-10 shadow"
+              className="flex items-center bg-gray-100 mb-10 shadow addnlcls"
               key={account.id}
             >
               <div className="flex-auto text-left px-4 py-2 m-2">
