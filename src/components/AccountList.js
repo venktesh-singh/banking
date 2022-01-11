@@ -19,7 +19,7 @@ export const AccountList = () => {
     },
     [setCurrentPage]
   );
-  const currentData = accounts.slice(
+  const currentData = accounts.reverse().slice(
     (currentPage - 1) * LIMIT,
     (currentPage - 1) * LIMIT + LIMIT
   );
